@@ -11,6 +11,10 @@ const Tab = createBottomTabNavigator();
 const logo = require('../assets/cleansweep_logotransparent.png');
 //for testing purposes need navigation so can go back to login page simply restarting app doesnt work
 function App() {
+  const [helpedhours, Hours] = React.useState(0);
+  const add = (hours) => {
+    Hours(prev => prev + hours);
+  };
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -38,8 +42,12 @@ function App() {
         })}
       >
         <Tab.Screen name="logintest" component={LoginPage} options={{ title: 'Login' }} />
-        <Tab.Screen name="eventtest" component={EventPage} options={{ title: 'Events' }} />
-        <Tab.Screen name="profiletest" component={ProfilePage} options={{ title: 'Profile' }} />
+        <Tab.Screen name="eventtest" options={{ title: 'Events' }}>
+        {() => <EventPage add={add} />}
+        </Tab.Screen>
+        <Tab.Screen name="profiletest" options={{ title: 'Profile' }}>
+        {() => <ProfilePage helpedhours={helpedhours} />} 
+        </Tab.Screen>
       </Tab.Navigator>
       
     </NavigationContainer>
