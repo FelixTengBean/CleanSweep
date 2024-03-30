@@ -12,14 +12,15 @@ const EventItem = ({ location, description, signup }) => {
   );
 };
 //the actual page
-const EventPage = () => {
+const EventPage = ({add}) => {
   const events = [ //fake events these will eventually come from report page (having id is important for mapping)
-    { id: '1', location: 'Test Event 1', description: 'This is a event test' },
-    { id: '2', location: 'Test Event 2', description: 'This is a event test' }
+    { id: '1', location: 'Test Event 1', description: 'This is a event test', duration: 6},
+    { id: '2', location: 'Test Event 2', description: 'This is a event test', duration: 9}
   ];
 //functioanlity for signup button
-  const signupfunctionality = (location) => {
+  const signupfunctionality = (location,duration) => {
     Alert.alert('Sign Up', `Signed up for ${location}`);
+    add(duration)
   };
 //we want to use safeareaview as best option for phones, statusbar we want to use dark-content which is what pretty much every app uses its really the default for ios/android device we are using scrollview so we can scroll the page (this doesnt really matter right now but for later)
 //then for each event we are making it an eventitem mapping it with its key location description and signup and applying its styling from stylesheet
@@ -32,7 +33,7 @@ const EventPage = () => {
             key={event.id}
             location={event.location}
             description={event.description}
-            signup={() => signupfunctionality(event.location)}
+            signup={() => signupfunctionality(event.location,event.duration)}
           />
         ))}
       </ScrollView>
