@@ -1,8 +1,70 @@
-import React from 'react';
+import React, {useState}from 'react';
 import { StyleSheet, View, Text, SafeAreaView, ScrollView, StatusBar, TouchableOpacity, Image } from 'react-native';
 
 const pfp = require('../assets/cleansweep_logo.jpg');
-const ProfilePage = () => {
+const ProfilePage = ({helpedhours}) => {
+  const achieved = [
+    { id: 1, name: 'made account', recieved: true},
+    { id: 2, name: '69 hours helped', recieved: false},
+    ];
+  const settings = [
+    { id: 1, setting: 'colorblind mode', on: false},
+    { id: 2, setting: 'banner notis', on: true},  
+    ];
+  const [display1, Achivementstf] = useState(false);
+  const [display2, Settingstf] = useState(false);
+  const achievementsonoff = () => {
+    Achivementstf(!display1); //opposite so can toggle
+  };
+  const settingsonoff = () => {
+    Settingstf(!display2); //opposite
+  };
+  const showachievements = () => { //display for achievements color logic expanding on this later
+    if(display1) {
+      return (
+        <View>
+          {achieved.map(achievements => {
+            let color;
+            if (achievements.recieved == true) {
+              color = 'green';
+            } 
+            else {
+              color = 'red';
+            }    
+            return (
+              <Text key={achievements.id} style={{ color: color }}>{achievements.name}</Text>
+            );
+          })}
+        </View>
+      );
+    } 
+    else {
+      return null;
+    }
+  }
+  const showsettings = () => { //display for settings color logic expanding on this later (can change setting directly here and color will change based on that is what i want to implement)
+    if(display2) {
+      return (
+        <View>
+          {settings.map(settings => {
+            let color;
+            if (settings.on == true) {
+              color = 'green';
+            } 
+            else {
+              color = 'red';
+            }    
+            return (
+              <Text key={settings.id} style={{ color: color }}>{settings.setting}</Text>
+            );
+          })}
+        </View>
+      );
+    } 
+    else {
+      return null;
+    }
+  }
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
@@ -12,17 +74,19 @@ const ProfilePage = () => {
               style={styles.profilepic}
               source={pfp}
             />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={achievementsonoff}>
             <Text>achievements</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+            {showachievements()}
+          <TouchableOpacity onPress={settingsonoff}>
             <Text>settings</Text>
           </TouchableOpacity>
+            {showsettings()}
           <TouchableOpacity>
             <Text>privacy settings</Text> 
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text>Hours Helped!</Text> 
+            <Text>💚hours Helped: {helpedhours}</Text> 
           </TouchableOpacity>
         </View>
       </ScrollView>
