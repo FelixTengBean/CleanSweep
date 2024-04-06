@@ -1,16 +1,17 @@
 import React, {useState}from 'react';
 import { StyleSheet, View, Text, SafeAreaView, ScrollView, StatusBar, TouchableOpacity, Image } from 'react-native';
+import Modal from 'react-native-modal';
 
 const pfp = require('../assets/cleansweep_logo.jpg');
 const ProfilePage = ({helpedhours}) => {
   const achieved = [
     { id: 1, name: 'made account', recieved: true},
-    { id: 2, name: '69 hours helped', recieved: false},
+    { id: 2, name: '69 hours helped', recieved: false, neededhour: 69},
     ];
-  const settings = [
+  const [settings, Settingtf] = useState([
     { id: 1, setting: 'colorblind mode', on: false},
-    { id: 2, setting: 'banner notis', on: true},  
-    ];
+    { id: 2, setting: 'banner notis', on: true},
+    ]);
   const [display1, Achivementstf] = useState(false);
   const [display2, Settingstf] = useState(false);
   const achievementsonoff = () => {
@@ -19,6 +20,17 @@ const ProfilePage = ({helpedhours}) => {
   const settingsonoff = () => {
     Settingstf(!display2); //opposite
   };
+  const settingonoff = id => {
+    Settingtf(settings.map(setting => {
+      if (setting.id == id) {
+        return { id: setting.id, setting: setting.setting, on: !setting.on};
+      }
+      else if (setting.id != id) {
+        return { id: setting.id, setting: setting.setting, on: setting.on}
+      }
+    }));
+  };
+
   const showachievements = () => { //display for achievements color logic expanding on this later
     if(display1) {
       return (
@@ -27,7 +39,11 @@ const ProfilePage = ({helpedhours}) => {
             let color;
             if (achievements.recieved == true) {
               color = 'green';
-            } 
+            }
+            else if (helpedhours >= achievements.neededhour){
+              color = 'green';
+              achievements.recieved = true;
+            }
             else {
               color = 'red';
             }    
@@ -53,9 +69,18 @@ const ProfilePage = ({helpedhours}) => {
             } 
             else {
               color = 'red';
-            }    
+            }
+            let status;
+            if (settings.on == true) {
+              status = settings.setting + ': on';
+            } 
+            else {
+            status = settings.setting + ': off';
+            }
             return (
-              <Text key={settings.id} style={{ color: color }}>{settings.setting}</Text>
+              <TouchableOpacity key={settings.id} onPress={() => settingonoff(settings.id)}>
+              <Text style={{ color: color }}>{status}</Text>
+            </TouchableOpacity>
             );
           })}
         </View>
@@ -74,14 +99,33 @@ const ProfilePage = ({helpedhours}) => {
               style={styles.profilepic}
               source={pfp}
             />
+
           <TouchableOpacity onPress={achievementsonoff}>
             <Text>achievements</Text>
           </TouchableOpacity>
-            {showachievements()}
+
+          <Modal isVisible={display1}>
+          <View style={styles.modal}> 
+              {showachievements()}
+              <TouchableOpacity onPress={achievementsonoff}>
+                <Text>exit</Text>
+              </TouchableOpacity>
+            </View>
+          </Modal>
+
           <TouchableOpacity onPress={settingsonoff}>
             <Text>settings</Text>
           </TouchableOpacity>
-            {showsettings()}
+
+          <Modal isVisible={display2}>
+          <View style={styles.modal}> 
+              {showsettings()}
+              <TouchableOpacity onPress={settingsonoff}>
+                <Text>exit</Text>
+              </TouchableOpacity>
+            </View>
+          </Modal>
+
           <TouchableOpacity>
             <Text>privacy settings</Text> 
           </TouchableOpacity>
@@ -118,6 +162,11 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
+  },
+  modal: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 15,
   },
 });
 
