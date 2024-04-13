@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Button, TextInput, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Button, TextInput, ActivityIndicator, Alert } from 'react-native';
 import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
 
@@ -9,17 +9,23 @@ export default function ReportPage() {
   const [customMessType, setCustomMessType] = useState('');
   const [isCustomMessTypeVisible, setIsCustomMessTypeVisible] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-        return;
-      }
+      try {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          throw new Error('Permission to access location was denied');
+        }
 
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location.coords);
+        let location = await Location.getCurrentPositionAsync({});
+        setLocation(location.coords);
+      } catch (error) {
+        setErrorMsg(error.message);
+      } finally {
+        setLoading(false);
+      }
     })();
   }, []);
 
@@ -35,10 +41,12 @@ export default function ReportPage() {
   };
 
   const handleCustomTagSubmit = () => {
-    if (customMessType && !tags.includes(customMessType)) {
+    if (customMessType.trim() !== '' && !tags.includes(customMessType)) {
       setTags([...tags, customMessType]);
       setCustomMessType('');
       setIsCustomMessTypeVisible(false);
+    } else {
+      Alert.alert('Invalid Input', 'Please enter a valid custom tag.');
     }
   };
 
@@ -49,7 +57,14 @@ export default function ReportPage() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Report an Issue</Text>
-      {location ? (
+      {loading ? (
+        <View style={styles.loadingContainer}>
+          <Text style={styles.loadingText}>Waiting for permission...</Text>
+          <ActivityIndicator size="large" color="#006400" style={styles.activityIndicator} />
+        </View>
+      ) : errorMsg ? (
+        <Text style={styles.errorText}>{errorMsg}</Text>
+      ) : (
         <>
           <MapView
             style={styles.map}
@@ -75,7 +90,7 @@ export default function ReportPage() {
             </View>
           </View>
           <View style={styles.buttonContainer}>
-            {['Trash', 'Graffiti', 'Other'].map((type) => (
+            {['Trash Pickup', 'Pollution', 'Other'].map((type) => (
               <TouchableOpacity key={type} style={styles.button} onPress={() => handleTagSelection(type)}>
                 <Text style={styles.buttonText}>{type}</Text>
               </TouchableOpacity>
@@ -93,13 +108,6 @@ export default function ReportPage() {
             </>
           )}
         </>
-      ) : errorMsg ? (
-        <Text>{errorMsg}</Text>
-      ) : (
-        <View style={styles.loadingContainer}>
-          <Text style={styles.loadingText}>Waiting for permission...</Text>
-          <ActivityIndicator size="large" color="#006400" style={styles.activityIndicator} />
-        </View>
       )}
     </View>
   );
@@ -119,12 +127,15 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
     marginVertical: 20,
   },
   button: {
     backgroundColor: '#007bff',
     padding: 10,
     marginHorizontal: 5,
+    marginBottom: 10,
     borderRadius: 5,
   },
   buttonText: {
@@ -175,6 +186,11 @@ const styles = StyleSheet.create({
   loadingText: {
     marginBottom: 30, // Increased space
     fontSize: 16,
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 16,
+    marginVertical: 20,
   },
   activityIndicator: {
     // Adjustments can be made here if needed
