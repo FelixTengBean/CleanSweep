@@ -1,13 +1,11 @@
 import React from 'react';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Homepage from '../pages/Homepage';
 import Events from '../pages/EventPage';
-// import Reports from '../pages/Reports';
 import Profile from '../pages/ProfilePage';
 
-const Tab = createBottomTabNavigator();
-
+const Tab = createMaterialTopTabNavigator();
 
 function MainTabNavigator() {
   return (
@@ -34,15 +32,18 @@ function MainTabNavigator() {
         },
         tabBarActiveTintColor: '#4CAF50',
         tabBarInactiveTintColor: 'gray',
-        tabBarStyle: { display: 'flex' },
+        swipeEnabled: true,
       })}
+      tabBarPosition="bottom"
+      tabBarOptions={{
+        showIcon: true,
+        showLabe: false,
+        style: { backgroundColor: '#fff' },
+      }}
     >
-      {/* Place the Events tab */}
-      <Tab.Screen name="Events" component={Events} />
-      {/* Set the Homepage as the initial route and in the center */}
-      <Tab.Screen name="Home" component={Homepage} />
-      {/* Profile tab */}
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Events" component={Events} options={{ tabBarLabel: 'Events' }} />
+      <Tab.Screen name="Home" component={Homepage} options={{ tabBarLabel: 'Home' }} />
+      <Tab.Screen name="Profile" component={Profile} options={{ tabBarLabel: 'Profile' }} />
     </Tab.Navigator>
   );
 }
