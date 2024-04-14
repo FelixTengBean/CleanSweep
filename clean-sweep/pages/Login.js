@@ -73,7 +73,7 @@ const Login = ({ navigation }) => {
   const [error, setError] = React.useState('');
 
   const logon = () => {
-    if (username === 'CS' && password === 'rcos') {
+    if (username === 'A' && password === 'a') {
       setError('');
       navigation.navigate('Main'); // This should match the name of your main navigator screen
     } else {
