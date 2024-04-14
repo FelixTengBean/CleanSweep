@@ -1,3 +1,4 @@
+/*
 import React from 'react'; //we need this for variables
 import { StyleSheet, View, Text, SafeAreaView, ScrollView, StatusBar, TextInput, TouchableOpacity,Image} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'; //we need this for navigation
@@ -157,3 +158,4 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+*/
