@@ -1,16 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
+// import { StyleSheet, Text, View } from 'react-native'; at the moment dont need any of these imports from react-native
+import EventPage from './pages/EventPage'; //the page we are using
+import LoginPage from './pages/LoginPage'; //the page we are using
+import Homepage from './pages/Homepage';
+import AppNavigator from './navigation/AppNavigator';
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <Text>Test Change!</Text>
-      <StatusBar style="auto" />
-    </View>
+  //  <View style={styles.container}> dont need styling for now
+      //<EventPage /> //goes to the page
+      <AppNavigator/> //goes to the page
+  //  </View> dont need styling for now
   );
 }
-
+/* we dont need any styling for now we are just navigating to the eventpage directly on app open to work on it so styling unecessary for now
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -18,4 +19,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+}); */
