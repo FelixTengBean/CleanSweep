@@ -9,7 +9,6 @@ import Profile from '../pages/ProfilePage';
 const Tab = createBottomTabNavigator();
 
 
-
 function MainTabNavigator() {
   return (
     <Tab.Navigator
@@ -33,11 +32,10 @@ function MainTabNavigator() {
           // Return the appropriate icon component
           return <IconComponent name={iconName} size={size} color={color} />;
         },
+        tabBarActiveTintColor: 'tomato',
+        tabBarInactiveTintColor: 'gray',
+        tabBarStyle: { display: 'flex' },
       })}
-      tabBarOptions={{
-        activeTintColor: 'tomato',
-        inactiveTintColor: 'gray',
-      }}
     >
       {/* Place the Events tab */}
       <Tab.Screen name="Events" component={Events} />
