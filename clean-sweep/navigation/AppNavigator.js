@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginPage from './LoginPage';
+import LoginPage from '../pages/Login';
 import MainTabNavigator from './MainTabNavigator'; // This will be your tab navigator
 
 const Stack = createNativeStackNavigator();

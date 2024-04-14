@@ -11,65 +11,61 @@ import {
   StyleSheet
 } from 'react-native';
 
-// Import the image used in the logo if you have a specific asset
-// For example, if you have a logo.png in your assets folder, you would import it like this:
-// import logo from './path/to/your/logo.png';
-
-
+// Replace this with the correct import path if you use an external file
 const logo = require('../assets/cleansweep_logotransparent.png');
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-    },
-    scrollView: {
-      marginHorizontal: 15,
-    },
-    contentContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: 0,
-    },
-    input: {
-      height: 42,
-      width: '95%',
-      margin: 12,
-      backgroundColor: '#f0fff0', 
-      paddingHorizontal: 10, 
-      paddingVertical: 8, 
-      borderRadius: 5, 
-      shadowOffset: { width: 0, height: 2.25 }, 
-      shadowOpacity: 0.15, 
-      shadowRadius: 3.5, 
-    },
-    button: {
-      alignItems: 'center',
-      backgroundColor: '#f0fff0',
-      padding: 10,
-      width: '95%',
-      height: 42, 
-      borderRadius: 5, 
-      shadowOffset: { width: 0, height: 2.25 }, 
-      shadowOpacity: 0.15, 
-      shadowRadius: 3.5, 
-    },
-    buttontext: {
-      color: '#454545',
-      textAlign: 'center',
-    },
-    error: {
-      fontSize: 14,
-      color: 'red', 
-    },
-    logo: {
-      width: 250, 
-      height: 100, 
-      marginBottom: 0, 
-      marginTop: 150,
-    }
-  });
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  scrollView: {
+    marginHorizontal: 15,
+  },
+  contentContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 0,
+  },
+  input: {
+    height: 42,
+    width: '95%',
+    margin: 12,
+    backgroundColor: '#f0fff0', 
+    paddingHorizontal: 10, 
+    paddingVertical: 8, 
+    borderRadius: 5, 
+    shadowOffset: { width: 0, height: 2.25 }, 
+    shadowOpacity: 0.15, 
+    shadowRadius: 3.5, 
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#f0fff0',
+    padding: 10,
+    width: '95%',
+    height: 42, 
+    borderRadius: 5, 
+    shadowOffset: { width: 0, height: 2.25 }, 
+    shadowOpacity: 0.15, 
+    shadowRadius: 3.5, 
+  },
+  buttontext: {
+    color: '#454545',
+    textAlign: 'center',
+  },
+  error: {
+    fontSize: 14,
+    color: 'red', 
+  },
+  logo: {
+    width: 250, 
+    height: 100, 
+    marginBottom: 0, 
+    marginTop: 150,
+  }
+});
 
 const Login = ({ navigation }) => {
   const [username, setUser] = React.useState('');
@@ -77,11 +73,11 @@ const Login = ({ navigation }) => {
   const [error, setError] = React.useState('');
 
   const logon = () => {
-    if (username === 'christian' && password === 'rcos') {
+    if (username === 'CS' && password === 'rcos') {
       setError('');
-      navigation.navigate('eventtest');
+      navigation.navigate('Main'); // This should match the name of your main navigator screen
     } else {
-      setError('user/pass incorrect test');
+      setError('user/pass incorrect');
     }
   };
 
