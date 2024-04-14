@@ -12,9 +12,10 @@ function MainTabNavigator() {
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
+        tabBarIcon: ({ focused, color }) => {
           let iconName;
           let IconComponent = MaterialIcons; // Default icon set
+          let iconSize = 30; // Adjust icon size here
 
           if (route.name === 'Home') {
             iconName = focused ? 'home' : 'home-outline';
@@ -28,17 +29,19 @@ function MainTabNavigator() {
           }
 
           // Return the appropriate icon component
-          return <IconComponent name={iconName} size={size} color={color} />;
+          return <IconComponent name={iconName} size={iconSize} color={color} />;
         },
         tabBarActiveTintColor: '#4CAF50',
         tabBarInactiveTintColor: 'gray',
         swipeEnabled: true,
+        tabBarShowIcon: true, // Ensure icons are shown
       })}
       tabBarPosition="bottom"
       tabBarOptions={{
         showIcon: true,
-        showLabe: false,
+        showLabel: false,
         style: { backgroundColor: '#fff' },
+        iconStyle: { width: 40, height: 40 }, // Adjust width and height as needed
       }}
     >
       <Tab.Screen name="Events" component={Events} options={{ tabBarLabel: 'Events' }} />
