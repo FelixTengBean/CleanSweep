@@ -7,7 +7,7 @@ export default function App() {
   return (
   //  <View style={styles.container}> dont need styling for now
       //<EventPage /> //goes to the page
-      <Homepage/> //goes to the page
+      <AppNavigator/> //goes to the page
   //  </View> dont need styling for now
   );
 }

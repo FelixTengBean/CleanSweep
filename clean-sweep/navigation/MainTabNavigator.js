@@ -32,7 +32,7 @@ function MainTabNavigator() {
           // Return the appropriate icon component
           return <IconComponent name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: 'tomato',
+        tabBarActiveTintColor: '#4CAF50',
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: { display: 'flex' },
       })}
