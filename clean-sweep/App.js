@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Modal, StyleSheet, Text, View, ScrollView, TouchableOpacity, TouchableHighlight } from 'react-native';
 import { Calendar } from 'react-native-calendars';
@@ -101,6 +102,7 @@ export default function App() {
   );
 
   return (
+
     <View style={styles.container}>
       <View style={styles.switchContainer}>
         <TouchableOpacity onPress={() => setViewMode('list')} style={styles.switchButton}>
@@ -126,7 +128,7 @@ export default function App() {
     </View>
   );
 }
-
+/* we dont need any styling for now we are just navigating to the eventpage directly on app open to work on it so styling unecessary for now
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -205,4 +207,4 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
   },
-});
+}); */
