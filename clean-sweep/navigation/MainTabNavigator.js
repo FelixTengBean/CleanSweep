@@ -34,15 +34,12 @@ function MainTabNavigator() {
         tabBarActiveTintColor: '#4CAF50',
         tabBarInactiveTintColor: 'gray',
         swipeEnabled: true,
-        tabBarShowIcon: true, // Ensure icons are shown
+        tabBarShowLabel: true,
+        tabBarShowIcon: true,
+        tabBarIconStyle: { width: 40, height: 40 }, // Adjust width and height as needed
+        tabBarStyle: { backgroundColor: '#fff' },
       })}
       tabBarPosition="bottom"
-      tabBarOptions={{
-        showIcon: true,
-        showLabel: false,
-        style: { backgroundColor: '#fff' },
-        iconStyle: { width: 40, height: 40 }, // Adjust width and height as needed
-      }}
     >
       <Tab.Screen name="Events" component={Events} options={{ tabBarLabel: 'Events' }} />
       <Tab.Screen name="Home" component={Homepage} options={{ tabBarLabel: 'Home' }} />
